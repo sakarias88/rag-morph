@@ -5,6 +5,6 @@
 	"ignore"	:
 	[
 		"LICENCE",
-		".git"
+		".git/*"
 	]
 }
