@@ -1,0 +1,10 @@
+{
+	"title"		:	"Rag Morph",
+	"type"		:	"tool",
+	"tags"		:	[ "fun", "cartoon" ],
+	"ignore"	:
+	[
+		"LICENCE",
+		".git"
+	]
+}
