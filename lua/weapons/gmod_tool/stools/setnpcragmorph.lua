@@ -115,7 +115,7 @@ function TOOL:LeftClick( trace )
 				local matr = ent:GetBoneMatrix(i)
 				matr:Scale(Vector(0, 0, 0))
 				ent:SetBoneMatrix(i, matr)	
-				ent:SetColor(0,0,0,0)
+				ent:SetColor({r=0, g=0, b=0, a=0})
 			 end 	 
 			ent.WobbleManTagDoll = rag
 			ent.WobbleManTagDoll.sleep = false
@@ -264,31 +264,30 @@ local function InitiateWobbleMan(npc)
 
 		local rag = ents.Create( "prop_ragdoll" ) 
 		local model = npc:GetModel()
-		
-		
+
 		rag:SetModel( model ) 
 		rag:SetPos(npc:GetPos())  
 		rag:Spawn()  
 		rag:SetCollisionGroup( COLLISION_GROUP_DEBRIS   )
 		rag:SetOwner(npc)
-		
+
 		 local bones = rag:GetPhysicsObjectCount()
 
 		 for i=0,bones-1 do
 
 			 local bone = rag:GetPhysicsObjectNum( i )  
-			 
+
 			 if IsValid( bone ) then  
 				local bonepos, boneang = npc:GetBonePosition( rag:TranslatePhysBoneToBone( i ) )  
 				bone:SetPos( bonepos )  
 				bone:SetAngles( boneang )   
-			 end  
-			 
+			 end
+
 			local matr = npc:GetBoneMatrix(i)
 			matr:Scale(Vector(0, 0, 0))
-			npc:SetBoneMatrix(i, matr)	
-			npc:SetColor(0,0,0,0)
-		 end 	 
+			npc:SetBoneMatrix(i, matr)
+		 end
+		npc:SetColor(0,0,0,0)
 		npc.WobbleManTagDoll = rag
 		npc.WobbleManTagDoll.sleep = false
 		npc:SetMaterial( "models/effects/vol_light001" ) 
@@ -298,19 +297,19 @@ local function InitiateWobbleMan(npc)
 		if npc:GetMaterial() != "models/effects/vol_light001" then
 			npc.WobbleManMat = npc:GetMaterial()
 		end
-		
+
 		if !npc.WobbleManBones then
 			npc.WobbleManBones = {"1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00"}
 		end
-		
+
 		if !npc.WobbleManHideWeapon then
 			npc.WobbleManHideWeapon = "0.00"
 		end
-		
+
 		if !npc.WobbleManHideViewWeapon then
 			npc.WobbleManHideViewWeapon = "0.00"
 		end
-		
+
 		if !npc.WobbleManRagdollEffectsPly then
 			npc.WobbleManRagdollEffectsPly = "0.00"
 		end
