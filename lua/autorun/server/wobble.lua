@@ -538,7 +538,7 @@ local function MoveWobbleRagdollBones()
 						local bone = v.WobbleManTagDoll:GetPhysicsObjectNum( i ) 
 			
 						
-						if IsValid( bone ) && v.WobbleManTagDoll.BoneMover[i+1] && v.WobbleManTagDoll.BoneMover[i+1][3] != 0 then 
+						if IsValid( bone ) && v.WobbleManTagDoll.BoneMover[i+1] && v.WobbleManTagDoll.BoneMover[i+1][3] != 0 && v.WobbleManTagDoll.BoneMover[i+1][3] != null then 
 
 							local conDir = v.WobbleManTagDoll.BoneMover[i+1][2]
 							local dir = Vector(0,0,0)
