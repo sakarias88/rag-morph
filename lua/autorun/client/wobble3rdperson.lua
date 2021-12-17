@@ -1,8 +1,7 @@
 
 
 hook.Add("CalcView", "WobbleMan CalcView", function(ply, position, angles, fov)
-	
-	if !ply:Alive() or GetViewEntity() ~= ply then return end
+	if not ply:Alive() or GetViewEntity() ~= ply then return end
 	
 	local useSpecialView = ply:GetNetworkedBool("HasWobbleMan")
 	
@@ -11,13 +10,13 @@ hook.Add("CalcView", "WobbleMan CalcView", function(ply, position, angles, fov)
 		local InRagdollMode =  ply:GetNetworkedBool("WobbleManRagDollMode") 
 		local rag = ply:GetNetworkedEntity( "WobbleManEnt" )
 		
-		if !RagdollIsSleeping or InRagdollMode == true then
+		if not RagdollIsSleeping or InRagdollMode == true then
 		
 			local fpv = ply:GetNetworkedBool("WobbleManFPV")	
 		
-			if fpv && IsValid(rag) then
+			if fpv and IsValid(rag) then
 			
-				if rag:LookupAttachment( "eyes" ) != 0 then
+				if rag:LookupAttachment( "eyes" ) ~= 0 then
 					local myEyes = rag:GetAttachment( rag:LookupAttachment( "eyes" ) )
 	
 					return GAMEMODE:CalcView(ply, myEyes.Pos , angles, fov) 
@@ -53,7 +52,7 @@ hook.Add("CalcView", "WobbleMan CalcView", function(ply, position, angles, fov)
 				return GAMEMODE:CalcView(ply, position, angles, fov)
 			end
 			
-			if ( !IsValid(rag) ) then
+			if ( not IsValid(rag) ) then
 				ply:SetNetworkedBool("HasWobbleMan" , false)
 			end
 			

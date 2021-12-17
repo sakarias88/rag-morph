@@ -90,7 +90,7 @@ function RagMorphRigging(Panel)
 	Panel.Think = function()
 		if ( input.IsMouseDown( MOUSE_LEFT ) ) then
 			Panel.applySettings = true
-		elseif ( !input.IsMouseDown( MOUSE_LEFT ) and Panel.applySettings ) then
+		elseif ( not input.IsMouseDown( MOUSE_LEFT ) and Panel.applySettings ) then
 			ChangeBoneRigging()
 			Panel.applySettings = false
 		end
@@ -118,7 +118,7 @@ function RagMorphOptions(Panel)
 	Panel.Think = function()
 		if ( input.IsMouseDown( MOUSE_LEFT ) ) then
 			Panel.applySettings = true
-		elseif ( !input.IsMouseDown( MOUSE_LEFT ) and Panel.applySettings ) then
+		elseif ( not input.IsMouseDown( MOUSE_LEFT ) and Panel.applySettings ) then
 			ChangeRagMorphOptions()
 			Panel.applySettings = false
 		end

@@ -54,8 +54,8 @@ end
 
 function TOOL:LeftClick( trace )
 
-	if ( trace.Entity && trace.Entity:IsPlayer() ) then return false end
-	if !string.find( trace.Entity:GetClass( ), "npc_*" ) then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) then return false end
+	if not string.find( trace.Entity:GetClass( ), "npc_*" ) then return false end
 	if (CLIENT) then return true end
 	
 	local ply = self:GetOwner()
@@ -87,8 +87,8 @@ function TOOL:LeftClick( trace )
 		
 		ent.WobbleManBones = tableSettigns	
 	
-		//If it doesn't have a ragdoll we will create one for it.
-		if !ent.WobbleManTagDoll or ent.WobbleManTagDoll == NULL  then
+		-- If it doesn't have a ragdoll we will create one for it.
+		if not ent.WobbleManTagDoll or ent.WobbleManTagDoll == NULL  then
 			
 			local rag = ents.Create( "prop_ragdoll" ) 
 			local model = ent:GetModel()
@@ -122,23 +122,23 @@ function TOOL:LeftClick( trace )
 			ent:SetMaterial( "models/effects/vol_light001" ) 
 
 
-			if ent:GetMaterial() != "models/effects/vol_light001" then
+			if ent:GetMaterial() ~= "models/effects/vol_light001" then
 				ent.WobbleManMat = ent:GetMaterial()
 			end
 			
-			if !ent.WobbleManBones then
+			if not ent.WobbleManBones then
 				ent.WobbleManBones = {"1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00"}
 			end
 			
-			if !ent.WobbleManHideWeapon then
+			if not ent.WobbleManHideWeapon then
 				ent.WobbleManHideWeapon = "0.00"
 			end
 			
-			if !ent.WobbleManHideViewWeapon then
+			if not ent.WobbleManHideViewWeapon then
 				ent.WobbleManHideViewWeapon = "0.00"
 			end
 			
-			if !ent.WobbleManRagdollEffectsPly then
+			if not ent.WobbleManRagdollEffectsPly then
 				ent.WobbleManRagdollEffectsPly = "0.00"
 			end			
 		end	
@@ -152,8 +152,8 @@ end
 
 function TOOL:RightClick( trace )
 
-	if ( trace.Entity && trace.Entity:IsPlayer() ) then return false end
-	if !string.find( trace.Entity:GetClass( ), "npc_*" ) then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) then return false end
+	if not string.find( trace.Entity:GetClass( ), "npc_*" ) then return false end
 	if (CLIENT) then return true end
 	
 	local ply = self:GetOwner()
@@ -164,7 +164,7 @@ function TOOL:RightClick( trace )
 	if trace.Entity:IsValid()  then
 		local ent = trace.Entity
 
-		if ent.WobbleManTagDoll && ent.WobbleManTagDoll != NULL  then
+		if ent.WobbleManTagDoll and ent.WobbleManTagDoll ~= NULL  then
 			ent.WobbleManTagDoll:Remove()
 			ent.WobbleManTagDoll = NULL
 			ent:SetMaterial(ply.WobbleManMat)
@@ -294,23 +294,23 @@ local function InitiateWobbleMan(npc)
 		npc:DrawWorldModel( false )
 
 
-		if npc:GetMaterial() != "models/effects/vol_light001" then
+		if npc:GetMaterial() ~= "models/effects/vol_light001" then
 			npc.WobbleManMat = npc:GetMaterial()
 		end
 
-		if !npc.WobbleManBones then
+		if not npc.WobbleManBones then
 			npc.WobbleManBones = {"1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00"}
 		end
 
-		if !npc.WobbleManHideWeapon then
+		if not npc.WobbleManHideWeapon then
 			npc.WobbleManHideWeapon = "0.00"
 		end
 
-		if !npc.WobbleManHideViewWeapon then
+		if not npc.WobbleManHideViewWeapon then
 			npc.WobbleManHideViewWeapon = "0.00"
 		end
 
-		if !npc.WobbleManRagdollEffectsPly then
+		if not npc.WobbleManRagdollEffectsPly then
 			npc.WobbleManRagdollEffectsPly = "0.00"
 		end
 

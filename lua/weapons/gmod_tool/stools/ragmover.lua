@@ -30,7 +30,7 @@ end
 
 function TOOL:LeftClick( trace )
 
-	if ( trace.Entity && trace.Entity:IsPlayer() ) or trace.Entity:GetClass() != "prop_ragdoll" then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) or trace.Entity:GetClass() ~= "prop_ragdoll" then return false end
 	if (CLIENT) then return true end
 	
 	local ply = self:GetOwner()
@@ -38,7 +38,7 @@ function TOOL:LeftClick( trace )
 	
 	if trace.Entity:IsValid()  then
 	
-		if !trace.Entity.BoneMover then
+		if not trace.Entity.BoneMover then
 			trace.Entity.BoneMover = {}
 		end
 	
@@ -49,7 +49,7 @@ function TOOL:LeftClick( trace )
 		local bone = trace.PhysicsBone
 		local toggle = self:GetClientNumber("toggle")
 		
-		if !trace.Entity.BoneMover[bone+1] then
+		if not trace.Entity.BoneMover[bone+1] then
 			trace.Entity.BoneMover[bone+1] = {}
 		end		
 		
@@ -69,18 +69,18 @@ function TOOL:LeftClick( trace )
 end
 
 function TOOL:RightClick( trace )
-	if ( trace.Entity && trace.Entity:IsPlayer() ) or trace.Entity:GetClass() != "prop_ragdoll" then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) or trace.Entity:GetClass() ~= "prop_ragdoll" then return false end
 	if (CLIENT) then return true end
 	
 	local bone = trace.PhysicsBone
-	if !trace.Entity.BoneMover then trace.Entity.BoneMover = {} end
+	if not trace.Entity.BoneMover then trace.Entity.BoneMover = {} end
 	
 	trace.Entity.BoneMover[bone+1] = nil
 	return true
 end
 
 function TOOL:Reload( trace )
-	if ( trace.Entity && trace.Entity:IsPlayer() ) or trace.Entity:GetClass() != "prop_ragdoll" then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) or trace.Entity:GetClass() ~= "prop_ragdoll" then return false end
 	if (CLIENT) then return true end
 
 	trace.Entity.BoneMover = nil

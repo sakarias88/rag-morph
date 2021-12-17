@@ -20,7 +20,7 @@ end
 function TOOL:LeftClick( trace )
 
 
-	if ( trace.Entity && trace.Entity:IsPlayer() ) then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) then return false end
 
 	local coll = trace.Entity:GetCollisionGroup( )
 	
@@ -39,7 +39,7 @@ function TOOL:LeftClick( trace )
 end
 
 function TOOL:RightClick( trace )
-	if ( trace.Entity && trace.Entity:IsPlayer() ) then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) then return false end
 
 	if (CLIENT) then return true end
 	local ply = self:GetOwner()

@@ -49,10 +49,10 @@ if CLIENT then
 end
 
 function TOOL:CheckValidRagdoll( ent, boneNum )
-	if !string.find( ent:GetClass( ), "prop_ragdoll" ) then
+	if not string.find( ent:GetClass( ), "prop_ragdoll" ) then
 		self:GetOwner():PrintMessage( HUD_PRINTTALK, "Not a ragdoll")
 		return false
-	elseif !self:IsValidRagdoll( ent, boneNum ) then
+	elseif not self:IsValidRagdoll( ent, boneNum ) then
 		self:GetOwner():PrintMessage( HUD_PRINTTALK, "Not valid! The ragdoll does not have the required bone structure!")
 		return false
 	end
@@ -62,13 +62,13 @@ end
 
 function TOOL:LeftClick( trace )
 
-	if ( trace.Entity && trace.Entity:IsPlayer() ) or !trace.Entity:IsValid() then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) or not trace.Entity:IsValid() then return false end
 	if (CLIENT) then return true end
 	
 	local ply = self:GetOwner()
 	local boneNum = trace.Entity:GetPhysicsObjectCount()
 	
-	if !self:CheckValidRagdoll( trace.Entity, boneNum ) then return false end
+	if not self:CheckValidRagdoll( trace.Entity, boneNum ) then return false end
 
 	
 	ply.defaultMorphModel = trace.Entity:GetModel()
@@ -76,14 +76,14 @@ function TOOL:LeftClick( trace )
 end
 
 function TOOL:RightClick( trace )
-	if ( trace.Entity && trace.Entity:IsPlayer() ) or !trace.Entity:IsValid() then return false end
+	if ( trace.Entity and trace.Entity:IsPlayer() ) or not trace.Entity:IsValid() then return false end
 	if (CLIENT) then return true end
 	
 	local ply = self:GetOwner()
 	local boneNum = trace.Entity:GetPhysicsObjectCount()
 	
-	if IsValid( ply.WobbleManTagDoll ) && trace.Entity:EntIndex() == ply.WobbleManTagDoll:EntIndex() then return false end
-	if !self:CheckValidRagdoll( trace.Entity, boneNum ) then return false end
+	if IsValid( ply.WobbleManTagDoll ) and trace.Entity:EntIndex() == ply.WobbleManTagDoll:EntIndex() then return false end
+	if not self:CheckValidRagdoll( trace.Entity, boneNum ) then return false end
 
 	if IsValid( ply.WobbleManTagDoll ) then
 		RemoveWobbleManMENU(ply)
@@ -105,23 +105,23 @@ function TOOL:RightClick( trace )
 		ply:SetNetworkedBool("WobbleManFPV",false)		
 	end
 	
-	if !ply.WobbleManBones then
+	if not ply.WobbleManBones then
 		ply.WobbleManBones = {"1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00"}
 	end
 	
-	if !ply.WobbleManHideWeapon then
+	if not ply.WobbleManHideWeapon then
 		ply.WobbleManHideWeapon = "1.00"
 	end
 	
-	if !ply.WobbleManHideViewWeapon then
+	if not ply.WobbleManHideViewWeapon then
 		ply.WobbleManHideViewWeapon = "1.00"
 	end
 	
-	if !ply.WobbleManRagdollEffectsPly then
+	if not ply.WobbleManRagdollEffectsPly then
 		ply.WobbleManRagdollEffectsPly = "0.00"
 	end
 
-	if !ply.WobbleManPhysEffectRagdoll then
+	if not ply.WobbleManPhysEffectRagdoll then
 		ply.WobbleManPhysEffectRagdoll = "1.00"
 	end			
 		

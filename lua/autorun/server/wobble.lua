@@ -30,7 +30,7 @@ function wobble_removeMorphByEntIndex( index )
 
 	for i = 1, nrOfMorphs do 
 
-		if IsValid(allMorphs[i]) && allMorphs[i]:EntIndex( ) == index then
+		if IsValid(allMorphs[i]) and allMorphs[i]:EntIndex( ) == index then
 			wobble_removeMorph( i )
 			return true
 		end
@@ -43,7 +43,7 @@ local function wobble_checkRagdollTable()
 
 	for i = 1, nrOfMorphs do 
 
-		if !IsValid(allMorphs[i]) then
+		if not IsValid(allMorphs[i]) then
 			allMorphs[i] = allMorphs[nrOfMorphs]
 			allMorphOwners[i] = allMorphOwners[nrOfMorphs]
 			nrOfMorphs = nrOfMorphs - 1
@@ -90,7 +90,7 @@ local function makeWepVisable( ply )
 		local count = table.Count(weps)
 		
 		for i = 1, count do 
-			if weps[i]:GetClass() != ply.MorphRagdollModeWep then
+			if weps[i]:GetClass() ~= ply.MorphRagdollModeWep then
 				ply:SelectWeapon(weps[i]:GetClass())
 				ply:SelectWeapon(ply.MorphRagdollModeWep)
 				return true
@@ -114,7 +114,7 @@ end
 
 local function FreezeWobbleManMENU( ply ) 
 
-	if IsValid(ply.WobbleManTagDoll) && ply:Alive() then
+	if IsValid(ply.WobbleManTagDoll) and ply:Alive() then
 	
 		ply.WobbleManTagDoll:SetNotSolid( false )	
 		ply:SetNetworkedBool("WobbleManThirdPerson",true)
@@ -139,7 +139,7 @@ local function FreezeWobbleManMENU( ply )
 				local modelBoneName = ply.WobbleManTagDoll:GetBoneName( modelBoneID )
 				local arrID = GetBoneCheckId( modelBoneName )
 				
-				if arrID != -1 && ply.WobbleManBones[arrID] != nil && ply.WobbleManBones[arrID] == "1.00" or ply.RagdollMorphMode == true then
+				if arrID ~= -1 and ply.WobbleManBones[arrID] ~= nil and ply.WobbleManBones[arrID] == "1.00" or ply.RagdollMorphMode == true then
 					local bone = ply.WobbleManTagDoll:GetPhysicsObjectNum( i )
 					ply.WobbleManTagDoll.oldBoneVel[i] = bone:GetVelocity()
 					ply.WobbleManTagDoll.oldBoneAngVel[i] = bone:GetAngleVelocity()
@@ -148,7 +148,7 @@ local function FreezeWobbleManMENU( ply )
 			end
 		end			 	
 		
-		if ply.WobbleManTagDoll.sleep == false && ply.RagdollMorphMode != true then
+		if ply.WobbleManTagDoll.sleep == false and ply.RagdollMorphMode ~= true then
 			local vec = ply:GetAimVector( )
 			vec.z = vec.z * 0
 			ply:SetPos( ply:GetPos() + vec * -50)
@@ -166,7 +166,7 @@ concommand.Add( "FreezeWobbleManMENU", FreezeWobbleManMENU )
 
 local function UnFreezeWobbleManMENU(ply) 
 
-	if IsValid(ply.WobbleManTagDoll) && ply:Alive() && !ply:InVehicle() then
+	if IsValid(ply.WobbleManTagDoll) and ply:Alive() and not ply:InVehicle() then
 	
 		ply.InitiatedRagCount = 0
 		ply.WobbleManTagDoll.sleep = false
@@ -175,7 +175,7 @@ local function UnFreezeWobbleManMENU(ply)
 		ply.WobbleManMat = ply:GetMaterial()	
 		ply:SetMaterial( "ragMorphInvisivble" ) 
 
-		if(ply.WobbleManPhysEffectRagdoll != "1.00") then
+		if(ply.WobbleManPhysEffectRagdoll ~= "1.00") then
 			ply.WobbleManTagDoll:SetNotSolid( true )
 		else
 			ply.WobbleManTagDoll:SetNotSolid( false )			
@@ -188,12 +188,12 @@ local function UnFreezeWobbleManMENU(ply)
 			bone:EnableMotion( true )
 			bone:Wake()
 
-			if ply.WobbleManTagDoll.oldBoneVel && ply.WobbleManTagDoll.oldBoneVel[i] then
+			if ply.WobbleManTagDoll.oldBoneVel and ply.WobbleManTagDoll.oldBoneVel[i] then
 				bone:SetVelocity( ply.WobbleManTagDoll.oldBoneVel[i] )
 				ply.WobbleManTagDoll.oldBoneVel[i] = Vector(0,0,0)
 			end
 
-			if ply.WobbleManTagDoll.oldBoneAngVel && ply.WobbleManTagDoll.oldBoneAngVel[i] then
+			if ply.WobbleManTagDoll.oldBoneAngVel and ply.WobbleManTagDoll.oldBoneAngVel[i] then
 				bone:AddAngleVelocity(ply.WobbleManTagDoll.oldBoneAngVel[i])
 				ply.WobbleManTagDoll.oldBoneAngVel[i] = Vector(0,0,0)
 			end
@@ -207,12 +207,12 @@ concommand.Add( "UnFreezeWobbleManMENU", UnFreezeWobbleManMENU )
 
 local function CreateWobbleManMENU(ply)
 
-	if !ply:InVehicle() && !IsValid(ply.WobbleManTagDoll) && ply:Alive() && ply.RagdollMorphMode != true then
+	if not ply:InVehicle() and not IsValid(ply.WobbleManTagDoll) and ply:Alive() and ply.RagdollMorphMode ~= true then
 
 		local rag = ents.Create( "prop_ragdoll" ) 
 		local model = ""
 		
-		if !ply.defaultMorphModel or ply.defaultMorphModel == NULL then
+		if not ply.defaultMorphModel or ply.defaultMorphModel == NULL then
 			model = ply:GetModel()
 		else
 			model = ply.defaultMorphModel
@@ -256,31 +256,31 @@ local function CreateWobbleManMENU(ply)
 			ply:SetNetworkedBool("WobbleManFPV",false)		
 		end
 			
-		if(ply.WobbleManPhysEffectRagdoll != "1.00") then
+		if(ply.WobbleManPhysEffectRagdoll ~= "1.00") then
 			rag:SetNotSolid( true )
 		end
 		
-		if !ply.WobbleManBones then
+		if not ply.WobbleManBones then
 			ply.WobbleManBones = {"1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00","1.00"}
 		end
 		
-		if !ply.WobbleManHideWeapon then
+		if not ply.WobbleManHideWeapon then
 			ply.WobbleManHideWeapon = "1.00"
 		end
 		
-		if !ply.WobbleManHideViewWeapon then
+		if not ply.WobbleManHideViewWeapon then
 			ply.WobbleManHideViewWeapon = "1.00"
 		end
 		
-		if !ply.WobbleManRagdollEffectsPly then
+		if not ply.WobbleManRagdollEffectsPly then
 			ply.WobbleManRagdollEffectsPly = "0.00"
 		end
 
-		if !ply.WobbleManPhysEffectRagdoll then
+		if not ply.WobbleManPhysEffectRagdoll then
 			ply.WobbleManPhysEffectRagdoll = "1.00"
 		end
 
-		if !ply.SnapHeadToViewAngle then
+		if not ply.SnapHeadToViewAngle then
 			ply.SnapHeadToViewAngle = "0.00"
 		end
 		
@@ -296,7 +296,7 @@ local function CreateWobbleManMENU(ply)
 			ply:DrawViewModel( true )				
 		end			
 		
-	elseif IsValid(ply.WobbleManTagDoll) && ply:Alive() then
+	elseif IsValid(ply.WobbleManTagDoll) and ply:Alive() then
 		UnFreezeWobbleManMENU(ply) 
 	end
 
@@ -305,7 +305,7 @@ concommand.Add( "CreateWobbleManMENU", CreateWobbleManMENU )
 
 local function RagMorphRagdollModeOn(ply)
 	
-	if !ply:InVehicle() && (ply.RagdollMorphMode == nil or ply.RagdollMorphMode == false) && IsValid(ply.WobbleManTagDoll) && ply.WobbleManTagDoll.sleep != true then
+	if not ply:InVehicle() and (ply.RagdollMorphMode == nil or ply.RagdollMorphMode == false) and IsValid(ply.WobbleManTagDoll) and ply.WobbleManTagDoll.sleep ~= true then
 		ply.RagdollMorphMode = true
 		
 		ply:SetNetworkedBool("WobbleManRagDollMode",true)
@@ -333,7 +333,7 @@ local function RagMorphRagdollModeOn(ply)
 	
 	ply.InitiatedRagCount = ply.InitiatedRagCount or 0
 	--Prevent stack overflow
-	if !IsValid(ply.WobbleManTagDoll) and ply.InitiatedRagCount <= 2 then
+	if not IsValid(ply.WobbleManTagDoll) and ply.InitiatedRagCount <= 2 then
 		ply.InitiatedRagCount = ply.InitiatedRagCount + 1
 		CreateWobbleManMENU(ply)
 		RagMorphRagdollModeOn(ply)
@@ -345,7 +345,7 @@ concommand.Add( "RagMorphRagdollModeOn", RagMorphRagdollModeOn )
 
 local function RagMorphRagdollModeOff(ply)
 
-	if IsValid(ply.WobbleManTagDoll) && ply.RagdollMorphMode == true then
+	if IsValid(ply.WobbleManTagDoll) and ply.RagdollMorphMode == true then
 		ply.InitiatedRagCount = 0
 		if ply.WobbleManTagDoll.sleep == true then
 			UnFreezeWobbleManMENU(ply)
@@ -369,14 +369,14 @@ local function RagMorphRagdollModeOff(ply)
 		end
 		
 		
-		if(ply.WobbleManPhysEffectRagdoll != "1.00") then
+		if(ply.WobbleManPhysEffectRagdoll ~= "1.00") then
 			ply.WobbleManTagDoll:SetNotSolid( true )
 		else
 			ply.WobbleManTagDoll:SetNotSolid( false )			
 		end	
 
 		local wepon = ply:GetActiveWeapon()
-		if IsValid( wepon ) then --It's a wepon!!
+		if IsValid( wepon ) then --It's a wepon!
 			wepon:SetNextPrimaryFire( CurTime() )
 			wepon:SetNextSecondaryFire( CurTime() )	
 		end		
@@ -435,7 +435,7 @@ local function MoveWobbleRagdollBones()
 	
 	for i=1,nrOfMorphs do
 
-		if IsValid(allMorphs[i]) && IsValid(allMorphs[i].PlayerOwner) && allMorphs[i].PlayerOwner:Alive() && allMorphs[i].PlayerOwner.SnapHeadToViewAngle == "1.00" && !allMorphs[i].sleep then
+		if IsValid(allMorphs[i]) and IsValid(allMorphs[i].PlayerOwner) and allMorphs[i].PlayerOwner:Alive() and allMorphs[i].PlayerOwner.SnapHeadToViewAngle == "1.00" and not allMorphs[i].sleep then
 			local ang = allMorphs[i].PlayerOwner:EyeAngles()
 			ang.r = ang.r + 90
 			ang.p = ang.p - 90			
@@ -446,18 +446,18 @@ local function MoveWobbleRagdollBones()
 			bone:SetVelocity( vel )
 		end
 	
-		if not(IsValid(allMorphs[i])) && IsValid(allMorphOwners[i]) && allMorphOwners[i]:GetMaterial() == "ragMorphInvisivble" then
+		if not(IsValid(allMorphs[i])) and IsValid(allMorphOwners[i]) and allMorphOwners[i]:GetMaterial() == "ragMorphInvisivble" then
 			local ply = allMorphOwners[i]
 			RemoveWobbleManMENU(ply)
 			wobble_checkRagdollTable()
 		end
 		
-		if IsValid(allMorphs[i]) && !IsValid(allMorphs[i].PlayerOwner) then
+		if IsValid(allMorphs[i]) and not IsValid(allMorphs[i].PlayerOwner) then
 			allMorphs[i]:Remove()
 			wobble_checkRagdollTable()
 		end
 	
-		if allMorphs[i] != NULL && IsValid(allMorphs[i]) && IsValid( allMorphs[i].PlayerOwner ) then
+		if allMorphs[i] ~= NULL and IsValid(allMorphs[i]) and IsValid( allMorphs[i].PlayerOwner ) then
 			local v = allMorphs[i].PlayerOwner
 	
 			allMorphs[i]:GetPhysicsObject():Wake()
@@ -470,11 +470,11 @@ local function MoveWobbleRagdollBones()
 				end
 			end
 	
-			if v:Alive() && IsValid(v.WobbleManTagDoll) then
+			if v:Alive() and IsValid(v.WobbleManTagDoll) then
 			
 				v.dieOnce = false
 			
-				if !v.WobbleManTagDoll.sleep && v.RagdollMorphMode != true then
+				if not v.WobbleManTagDoll.sleep and v.RagdollMorphMode ~= true then
 			
 					local ragVel = Vector(0,0,0)
 				
@@ -490,7 +490,7 @@ local function MoveWobbleRagdollBones()
 						v:DrawViewModel( true )				
 					end
 					
-					if v.WobbleManPhysEffectRagdoll != "1.00" then
+					if v.WobbleManPhysEffectRagdoll ~= "1.00" then
 						v.WobbleManTagDoll:SetNotSolid( true )
 					else
 						v.WobbleManTagDoll:SetNotSolid( false )			
@@ -511,7 +511,7 @@ local function MoveWobbleRagdollBones()
 							local modelBoneName = v.WobbleManTagDoll:GetBoneName( modelBoneID )
 							local arrID = GetBoneCheckId( modelBoneName )
 							
-							if arrID != -1 && v.WobbleManBones[arrID] != nil && v.WobbleManBones[arrID] == "1.00" then
+							if arrID ~= -1 and v.WobbleManBones[arrID] ~= nil and v.WobbleManBones[arrID] == "1.00" then
 							
 								local bonepos, boneang = v:GetBonePosition( v:LookupBone( modelBoneName ) ) 
 								bone:SetVelocity( v:GetVelocity() )
@@ -538,7 +538,7 @@ local function MoveWobbleRagdollBones()
 						local bone = v.WobbleManTagDoll:GetPhysicsObjectNum( i ) 
 			
 						
-						if IsValid( bone ) && v.WobbleManTagDoll.BoneMover[i+1] && v.WobbleManTagDoll.BoneMover[i+1][3] != 0 && v.WobbleManTagDoll.BoneMover[i+1][3] != null then 
+						if IsValid( bone ) and v.WobbleManTagDoll.BoneMover[i+1] and v.WobbleManTagDoll.BoneMover[i+1][3] ~= 0 and v.WobbleManTagDoll.BoneMover[i+1][3] ~= null then 
 
 							local conDir = v.WobbleManTagDoll.BoneMover[i+1][2]
 							local dir = Vector(0,0,0)
@@ -565,13 +565,13 @@ local function MoveWobbleRagdollBones()
 					end
 				end
 			
-			elseif(!v:Alive() && v.dieOnce == false) then
+			elseif(not v:Alive() and v.dieOnce == false) then
 							
 				if v.WobbleManMat then
 					v:SetMaterial(v.WobbleManMat)
 				end			
 				
-				if v.UseRagMorphAsDeathRagdoll != nil && v.UseRagMorphAsDeathRagdoll == "0.00" then
+				if v.UseRagMorphAsDeathRagdoll ~= nil and v.UseRagMorphAsDeathRagdoll == "0.00" then
 					v.WobbleManTagDoll:Remove()
 					v.WobbleManTagDoll = NULL	
 					v:SetNetworkedBool("HasWobbleMan",false)
@@ -617,7 +617,7 @@ local function denyVehicleUsage( ply, veh, role )
 
 	if ply.RagdollMorphMode == true then return false end
 
-	if IsValid( ply.WobbleManTagDoll ) && ply.WobbleManTagDoll.sleep != true then
+	if IsValid( ply.WobbleManTagDoll ) and ply.WobbleManTagDoll.sleep ~= true then
 		FreezeWobbleManMENU(ply)
 		ply:PrintMessage( HUD_PRINTTALK, "You can't use rag morph inside vehicles. Use un-freeze to use the rag morph again.")
 	end
@@ -679,14 +679,14 @@ hook.Add("PlayerDeath", "ApplyMorphRagdollSpeed", ApplyMorphRagdollSpeed)
 
 --Numpad
 function wobble_ApplyPhysForceToRagdollBone( ply, ent, bone, mul )
-	if not ent:IsValid() or !ent.BoneMover or !ent.BoneMover[bone+1] then return false end
+	if not ent:IsValid() or not ent.BoneMover or not ent.BoneMover[bone+1] then return false end
 	
 	local toggle = ent.BoneMover[bone+1][4]
 	
-	if toggle && toggle == 1 then
-		if mul != 0 then
+	if toggle and toggle == 1 then
+		if mul ~= 0 then
 		
-			if !ent.BoneMover[bone+1][3] or ent.BoneMover[bone+1][3] == 0 then
+			if not ent.BoneMover[bone+1][3] or ent.BoneMover[bone+1][3] == 0 then
 				ent.BoneMover[bone+1][3] = mul
 			else
 				ent.BoneMover[bone+1][3] = 0

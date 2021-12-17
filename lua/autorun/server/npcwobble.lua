@@ -42,7 +42,7 @@ function checkNPCtalbe()
 	local slot = 0
 	
 	for i=1,NPCcounter do 
-		if allNPCs[i] && allNPCs[i]:IsValid() && IsValid(allNPCs[i]) then
+		if allNPCs[i] and allNPCs[i]:IsValid() and IsValid(allNPCs[i]) then
 			slot = slot + 1;
 			newNPCtable[slot] = allNPCs[i]
 		end
@@ -57,7 +57,7 @@ function()
 
 	for k, v in pairs( allNPCs ) do	
 		if v:IsNPC() then
-			if v.WobbleManTagDoll && v.WobbleManTagDoll != NULL then
+			if v.WobbleManTagDoll and v.WobbleManTagDoll ~= NULL then
 
 				local bones = v.WobbleManTagDoll:GetPhysicsObjectCount()
 				for i = 0 , bones-1 do
@@ -72,7 +72,7 @@ function()
 						
 						local arrID = GetBoneCheckId( modelBoneName )
 						
-						if arrID != -1 && v.WobbleManBones[arrID] != nil && v.WobbleManBones[arrID] == "1.00" then
+						if arrID ~= -1 and v.WobbleManBones[arrID] ~= nil and v.WobbleManBones[arrID] == "1.00" then
 						
 							local bonepos, boneang = v:GetBonePosition( v.WobbleManTagDoll:TranslatePhysBoneToBone( i ) )  
 							bone:SetPos( bonepos )  
@@ -93,11 +93,11 @@ function()
 	
 end)
 
-//Removing it if the NPC dies
+-- Removing it if the NPC dies
 hook.Add("OnNPCKilled","RemoveNPCWobble",
 function( victim, killer, weapon )
 
-		if victim.WobbleManTagDoll && victim.WobbleManTagDoll != NULL  then
+		if victim.WobbleManTagDoll and victim.WobbleManTagDoll ~= NULL  then
 			victim.WobbleManTagDoll:Remove()
 		end
 end)
@@ -111,7 +111,7 @@ hook.Add("PlayerSpawnedNPC", "AddNPCtoNPCTable", addNPCtable)
 
 function RemoveNPCRagMorph(ent)
 
-	if( ent:IsNPC() && ent.WobbleManTagDoll && ent.WobbleManTagDoll != NULL ) then
+	if( ent:IsNPC() and ent.WobbleManTagDoll and ent.WobbleManTagDoll ~= NULL ) then
 		ent.WobbleManTagDoll:Remove()
 	end
 
